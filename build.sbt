@@ -77,26 +77,26 @@ dockerfile in docker := {
   val port = 8080
 
   new Dockerfile {
-    from("thangiee/mars-base:v1")
+    from("frankie/ubuntu-desktop")
     expose(port)
 
     // environment variables
     // see src/main/resources/application.conf for descriptions
     env("MARS_PRIVATE_ADDR"        , "0.0.0.0")
-    env("MARS_PUBLIC_ADDR"         , "")
+    env("MARS_PUBLIC_ADDR"         , "192.168.99.100")
     env("MARS_PORT"                , s"$port")
     env("MARS_DB_URL"              , "jdbc:postgresql://localhost:5432/postgres")
-    env("MARS_DB_USER"             , "")
-    env("MARS_DB_PASSWORD"         , "")
+    env("MARS_DB_USER"             , "mars")
+    env("MARS_DB_PASSWORD"         , "mars")
     env("MARS_DB_DRIVER"           , "org.postgresql.Driver")
-    env("MARS_EMAIL_ADDR"          , "")
-    env("MARS_EMAIL_HOST"          , "")
-    env("MARS_EMAIL_PORT"          , "587")
-    env("MARS_EMAIL_SMTP_USER"     , "")
-    env("MARS_EMAIL_SMTP_PASSWORD" , "")
+    env("MARS_EMAIL_ADDR"          , "3469088135@qq.com")
+    env("MARS_EMAIL_HOST"          , "smtp.qq.com")
+    env("MARS_EMAIL_PORT"          , "465")
+    env("MARS_EMAIL_SMTP_USER"     , "3469088135@qq.com")
+    env("MARS_EMAIL_SMTP_PASSWORD" , "ccdwjgmlmtczcjeh")
     env("MARS_REG_UUID_TTL_SEC"    , "30")
-    env("MARS_FACEPP_KEY"          , "")
-    env("MARS_FACEPP_SECRET"       , "")
+    env("MARS_FACEPP_KEY"          , "34760cd2a745c9c2f020f827107ec202")
+    env("MARS_FACEPP_SECRET"       , "sq30Pp4EKH1Pnjg3yMp5WSGDRyhDsmpi ")
     env("MARS_TIMESHEET_DIR"       , s"$targetDir/timesheets")
     env("MARS_FACES_DIR"           , s"$targetDir/faces")
 
@@ -106,10 +106,5 @@ dockerfile in docker := {
 }
 
 imageNames in docker := Seq(
-  ImageName(s"thangiee/${name.value.toLowerCase()}:latest"),
-  ImageName(
-    namespace = Some("thangiee"),
-    repository = name.value.toLowerCase(),
-    tag = Some("v" + version.value)
-  )
+  ImageName(s"frankie/${name.value.toLowerCase()}:latest")
 )

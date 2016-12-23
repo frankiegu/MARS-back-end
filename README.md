@@ -1,22 +1,23 @@
 MARS-back-end
 =============
-The Mavs Assistant Reporting System (MARS) back-end server provides services that other 
+The Mavs Assistant Reporting System (MARS) back-end server provides services that other
 systems can consume through its RESTful API.
+
 
 Authentication
 --------------
 Most of the API endpoints require you to be authenticated. You can do that in one of two ways:
 
-  * Using HTTP Basic Authentication: 
-        
+  * Using HTTP Basic Authentication:
+
     Include the username and password in the URL on every API calls that require authentication.
     `http://username:password@example.com/resource`
-    
+
     **Both username and password need to be base 64 encoded!**
-  
+
   * Get a Session (preferably):
-    
-    Use the above method to [get a session cookie](#session-login), afterwards, you just send the cookie instead the 
+
+    Use the above method to [get a session cookie](#session-login), afterwards, you just send the cookie instead the
     credentials for future API calls.
 
 
@@ -33,7 +34,7 @@ Examples:
 --
 
 All Endpoints
-  
+
 * [Account Info](#account-info)
 * [Assistant Info](#assistant-info)
 * [Assistant Account Creation](#assistant-account-creation)
@@ -120,9 +121,9 @@ Returning
 
 Create an assistant and setup an account for that assistant.
 
-| Method   | Route              | 
-|:--------:|--------------------| 
-| POST     | /account/assistant | 
+| Method   | Route              |
+|:--------:|--------------------|
+| POST     | /account/assistant |
 
 Parameters
 
@@ -172,7 +173,7 @@ Parameters
 | dept      | String | optional | The assistant department  |
 | title     | String | optional | The assistant title       |
 | title_code| String | optional | The assistant titlecode   |
-| threshold | Double | optional | **Only admin and instructor can set this field.** <br> Can use to determine pass or fail for this assistant facial recognition result. Value must be between 0 and 1. 
+| threshold | Double | optional | **Only admin and instructor can set this field.** <br> Can use to determine pass or fail for this assistant facial recognition result. Value must be between 0 and 1.
 
 Returning
 
@@ -217,9 +218,9 @@ Returning
 
 Create an instructor and setup an account for that instructor.
 
-| Method   | Route               | 
-|:--------:|---------------------| 
-| POST     | /account/instructor | 
+| Method   | Route               |
+|:--------:|---------------------|
+| POST     | /account/instructor |
 
 Parameter
 
@@ -271,7 +272,7 @@ Returning
 
 ---
 
-#### Change Instructor Account Admin 
+#### Change Instructor Account Admin
 
 Change the route of an instructor account between an admin or a regular instructor.
 **Note** that all admins are instructor but not all instructors are admin.
@@ -328,7 +329,7 @@ Returning
 
 ---
 
-#### Approve Account 
+#### Approve Account
 
 Approve or un-approve a specific account.
 
@@ -363,7 +364,7 @@ Delete a specific account. This action will cascade and **DELETE ALL** other dat
 |:-----------:|-----------------------|-------------------------------|
 | DELETE      | /account/{*netid*} | Admin                         |
 
-Returning 
+Returning
 
 | HTTP Status Code | Description                           |
 |:----------------:|---------------------------------------|
@@ -462,7 +463,7 @@ Returning
 
 #### Update Clock In/Out Record
 
-Update a specific record. 
+Update a specific record.
 
 | Method      | Route                | Authorized                    |
 |:-----------:|----------------------|-------------------------------|
@@ -470,12 +471,12 @@ Update a specific record.
 
 Parameters
 
-| Key         | type   | Required | Description                                | 
-|-------------|--------|----------|--------------------------------------------| 
-| in_time     | long   | yes      | Clock in time, epoch time in milliseconds  | 
-| out_time    | long   | yes      | Clock out time, epoch time in milliseconds | 
-| in_comp_id  | string | optional | The computer id used to register the UUID  | 
-| out_comp_id | string | optional | The computer id used to register the UUID  | 
+| Key         | type   | Required | Description                                |
+|-------------|--------|----------|--------------------------------------------|
+| in_time     | long   | yes      | Clock in time, epoch time in milliseconds  |
+| out_time    | long   | yes      | Clock out time, epoch time in milliseconds |
+| in_comp_id  | string | optional | The computer id used to register the UUID  |
+| out_comp_id | string | optional | The computer id used to register the UUID  |
 
 Returning
 
@@ -498,7 +499,7 @@ Delete a specific clock in/out record by its {*id*}.
 |:-----------:|-----------------------|-------------------------------|
 | DELETE      | /records/{*id*}       | Admin, Instructor             |
 
-Returning 
+Returning
 
 | HTTP Status Code | Description                           |
 |:----------------:|---------------------------------------|
@@ -510,7 +511,7 @@ Returning
 
 ---
 
-#### Facial Recognition 
+#### Facial Recognition
 
 Given a face image, calculate the confidence that face belongs to the same assistant.
 
@@ -520,8 +521,8 @@ Given a face image, calculate the confidence that face belongs to the same assis
 
 Parameters
 
-| Key       | type       | Required | Description                                | 
-|-----------|------------|----------|--------------------------------------------| 
+| Key       | type       | Required | Description                                |
+|-----------|------------|----------|--------------------------------------------|
 | img       | byte array | yes      | The binary data of the face image to check |
 
 Returning
@@ -548,8 +549,8 @@ Add a face to the assistant to be used for calculating recognition results.
 
 Parameters
 
-| Key       | type       | Required | Description                                | 
-|-----------|------------|----------|--------------------------------------------| 
+| Key       | type       | Required | Description                                |
+|-----------|------------|----------|--------------------------------------------|
 | img       | byte array | yes      | The binary data of the face image          |
 
 Returning
@@ -568,7 +569,7 @@ Returning
 
 #### Remove Face From Recognition
 
-Remove a face image from being used for calculating recognition results. 
+Remove a face image from being used for calculating recognition results.
 
 | Method      | Route                | Authorized                    |
 |:-----------:|----------------------|-------------------------------|
@@ -578,7 +579,7 @@ Returning
 
 | HTTP Status Code | Description                           |
 |:----------------:|---------------------------------------|
-|        200       | Image removed                         | 
+|        200       | Image removed                         |
 |        400       | [Bad request](#400-bad-request)       |
 |        401       | [Unauthorized](#401-unauthorized)     |
 |        403       | [Forbidden](#403-forbidden)           |
@@ -614,7 +615,7 @@ Returning
 
 Register a short lived uuid. (use in the clock in/out process)
 
-| Method      | Route              | 
+| Method      | Route              |
 |:-----------:|--------------------|
 | POST        | /register-uuid     |
 
@@ -624,7 +625,7 @@ Parameters
 |-------------|--------|----------|-------------------------------------------|
 | uuid        | String | yes      | A valid UUID                              |
 
-Returning 
+Returning
 
 | HTTP Status Code | Description                           |
 |:----------------:|---------------------------------------|
@@ -640,11 +641,11 @@ Returning
 
 Verify that a specific {*uuid*} is still registered (use in the clock in/out process)
 
-| Method      | Route              | 
+| Method      | Route              |
 |:-----------:|--------------------|
 | GET         | /register-uuid/verify/{*uuid*} |
 
-Returning 
+Returning
 
 | HTTP Status Code | Description                           |
 |:----------------:|---------------------------------------|
@@ -660,13 +661,13 @@ Returning
 #### Session Login
 
 Start a session. The server will generate a authentication cookie and give it to the client for identifying the session.
-Said cookies is in the Http response header. 
+Said cookies is in the Http response header.
 
 | Method      | Route               | Authorized                    |
 |:-----------:|---------------------|-------------------------------|
 | POST or PUT | /session/login      | Admin, Instructor, Assistant  |
 
-Returning 
+Returning
 
 | HTTP Status Code | Description                           |
 |:----------------:|---------------------------------------|
@@ -701,13 +702,13 @@ Returning
 #### Email Time-sheet
 
 Generate and email a time-sheet for the first half month(1-15) or second half month(16 to last day of the month)
-of a specific {*year*} and {*month*} for the current assistant or specify {*netid*} for a specific assistant. 
+of a specific {*year*} and {*month*} for the current assistant or specify {*netid*} for a specific assistant.
 E-mail many take up to a few minutes to arrive.
 
-Example: 
+Example:
 
-Time-sheet for pay period 9/1/2015 - 9/15/2015  `/time-sheet/first-half-month?year=2015&month=9`	
-Time-sheet for pay period 9/16/2015 - 9/30/2015  `/time-sheet/second-half-month?year=2015&month=9`	
+Time-sheet for pay period 9/1/2015 - 9/15/2015  `/time-sheet/first-half-month?year=2015&month=9`
+Time-sheet for pay period 9/16/2015 - 9/30/2015  `/time-sheet/second-half-month?year=2015&month=9`
 
 | Method      | Route                                                                 | Authorized |
 |:-----------:|-----------------------------------------------------------------------|------------|
@@ -740,7 +741,7 @@ Data Models
 -----------
 Data encoded in JSON that some APIs will return on an HTTP 200.
 
-#### Account 
+#### Account
 
 **Note** that all admins are instructor but not all instructors are admin.
 
@@ -774,7 +775,7 @@ Data encoded in JSON that some APIs will return on an HTTP 200.
       "role": "assistant",
       "username": "demo_asst",
       "createTime": 1451762754206
-    }, 
+    },
     {
       "approve": true,
       "netId": "abc123",
@@ -988,7 +989,7 @@ Data encoded in JSON that some APIs will return on an HTTP 200.
 | Key           | Type     | Description                                                                                  |
 |---------------|----------|----------------------------------------------------------------------------------------------|
 | confidence    | Double   | A value between 0 and 1 of the likelihood the given face belongs to the same person.
-| threshold     | Double   | A value between 0 and 1 that can be compared with confidence to determine pass or fail recognition. Different assistants can have different values. 
+| threshold     | Double   | A value between 0 and 1 that can be compared with confidence to determine pass or fail recognition. Different assistants can have different values.
 
 ```json
 // example json response
@@ -998,11 +999,11 @@ Data encoded in JSON that some APIs will return on an HTTP 200.
 }
 ```
 
-#### URL 
+#### URL
 
 | Key           | Type     | Description                                                                                  |
 |---------------|----------|----------------------------------------------------------------------------------------------|
-| url           | String   | Url to the image 
+| url           | String   | Url to the image
 
 ```json
 // example json response
@@ -1011,9 +1012,9 @@ Data encoded in JSON that some APIs will return on an HTTP 200.
 }
 ```
 
-#### Image Info 
+#### Image Info
 
-You can appending `size` parameter at the end of the url to have that image 
+You can appending `size` parameter at the end of the url to have that image
 resized with its width and height equal to `size` pixels. `size` can have a value
 anywhere between 3 to 512.
 
@@ -1024,7 +1025,7 @@ can be resized to 64x64 px with `http://localhost:8080/api/assets/face/zwxNke.jp
 | Key           | Type     | Description                                                                                  |
 |---------------|----------|----------------------------------------------------------------------------------------------|
 | id            | String   | Image id
-| url           | String   | Url to the image 
+| url           | String   | Url to the image
 
 ```json
 // example json response
@@ -1057,7 +1058,7 @@ The account is not properly authenticated due to invalid username and/or passwor
 
 You don't have access to this resource because:
   * the account has not be approve by the administrator.
-  * the account role is not authorized. 
+  * the account role is not authorized.
 
 #### 404 Not Found
 
